@@ -3,7 +3,6 @@ package br.gturcheti.netflixremake
 import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
@@ -24,13 +23,6 @@ class MovieActivity : AppCompatActivity() {
         supportActionBar?.title = null
 
         val movies = mutableListOf<Movie>()
-        for (i in 0 until 15){
-            val movie = Movie(R.drawable.movie)
-            movies.add(movie)
-        }
-
-        val tvDescription: TextView = findViewById(R.id.movie_tv_description)
-        val tvCast: TextView = findViewById(R.id.movie_tv_cast)
         val rv: RecyclerView = findViewById(R.id.movie_rv_similar)
 
         rv.layoutManager = GridLayoutManager(this, 3)
