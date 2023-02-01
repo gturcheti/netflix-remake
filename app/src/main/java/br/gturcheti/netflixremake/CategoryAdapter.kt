@@ -8,17 +8,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.gturcheti.netflixremake.model.Category
 
-class CategoryAdapter(private val categories: List<Category>) :
+class CategoryAdapter(
+    private val categories: List<Category>,
+    private val onItemClickListener: (String) -> Unit,
+) :
     RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
 
     inner class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(category: Category) {
             val tv: TextView = itemView.findViewById(R.id.tv_category)
             tv.text = category.label
-            val adapter = MovieAdapter(category.movies, R.layout.movie_item)
             val rv: RecyclerView = itemView.findViewById(R.id.rv_category)
             rv.layoutManager = LinearLayoutManager(itemView.context, RecyclerView.HORIZONTAL, false)
-            rv.adapter = adapter
+            rv.adapter = MovieAdapter(category.movies, R.layout.movie_item, onItemClickListener)
         }
     }
 

@@ -1,5 +1,6 @@
 package br.gturcheti.netflixremake
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
@@ -13,12 +14,26 @@ import br.gturcheti.netflixremake.utils.CategoriesTask
 class MainActivity : AppCompatActivity(), CategoriesTask.Callback {
 
     private lateinit var progressBar : ProgressBar
+    private lateinit var adapter: CategoryAdapter
+    private val categories = mutableListOf<Category>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        progressBar = findViewById<ProgressBar>(R.id.progress_main)
+
+        progressBar = findViewById(R.id.progress_main)
+
         CategoriesTask(this).execute(URL)
+
+        adapter = CategoryAdapter(categories) { id ->
+            val intent = Intent(this@MainActivity, MovieActivity::class.java )
+            intent.putExtra("id", id)
+            startActivity(intent)
+        }
+
+        val rv: RecyclerView = findViewById(R.id.rv_main)
+        rv.layoutManager = LinearLayoutManager(this)
+        rv.adapter = adapter
     }
 
 
@@ -27,11 +42,10 @@ class MainActivity : AppCompatActivity(), CategoriesTask.Callback {
     }
 
     override fun onResult(categories: List<Category>) {
+        this.categories.clear()
+        this.categories.addAll(categories)
+        adapter.notifyDataSetChanged()
         progressBar.visibility = View.GONE
-        val adapter = CategoryAdapter(categories)
-        val rv: RecyclerView = findViewById(R.id.rv_main)
-        rv.layoutManager = LinearLayoutManager(this)
-        rv.adapter = adapter
     }
 
     override fun onFailure(mensagem: String) {
