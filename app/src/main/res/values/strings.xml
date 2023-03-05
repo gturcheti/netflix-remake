@@ -2,4 +2,6 @@
     <string name="app_name">NetFlix Remake</string>
     <string name="cast">Elenco: %1$s</string>
     <string name="similar">Opções semelhantes:</string>
+    <string name="error">Erro ao buscar o título!</string>
+    <string name="loading">Carregando...</string>
 </resources>

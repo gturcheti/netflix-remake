@@ -24,6 +24,7 @@ class MovieAdapter(
                     iv.setImageBitmap(bitmap)
                 }
             }).execute(movie.coverUrl)
+
             iv.setOnClickListener {
                 onItemClickListener?.invoke(movie.id)
 

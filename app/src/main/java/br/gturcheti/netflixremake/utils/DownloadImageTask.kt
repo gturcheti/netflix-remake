@@ -21,9 +21,9 @@ class DownloadImageTask(private val callback: Callback) {
     }
 
     fun execute(url: String) {
-        executor.execute{
-            var urlConnection : HttpsURLConnection? = null
-            var stream : InputStream? = null
+        executor.execute {
+            var urlConnection: HttpsURLConnection? = null
+            var stream: InputStream? = null
 
             try {
                 val requestURL = URL(url)

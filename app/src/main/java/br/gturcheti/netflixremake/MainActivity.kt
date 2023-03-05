@@ -13,7 +13,10 @@ import br.gturcheti.netflixremake.utils.CategoriesTask
 
 class MainActivity : AppCompatActivity(), CategoriesTask.Callback {
 
-    private lateinit var progressBar : ProgressBar
+    val KEY: String = "722fa115-a8da-49ea-b138-ce219bd5ee9b"
+    val URL: String = " https://api.tiagoaguiar.co/netflixapp/home?apiKey=${KEY}"
+
+    private lateinit var progressBar: ProgressBar
     private lateinit var adapter: CategoryAdapter
     private val categories = mutableListOf<Category>()
 
@@ -26,7 +29,7 @@ class MainActivity : AppCompatActivity(), CategoriesTask.Callback {
         CategoriesTask(this).execute(URL)
 
         adapter = CategoryAdapter(categories) { id ->
-            val intent = Intent(this@MainActivity, MovieActivity::class.java )
+            val intent = Intent(this@MainActivity, MovieActivity::class.java)
             intent.putExtra("id", id)
             startActivity(intent)
         }
@@ -44,6 +47,7 @@ class MainActivity : AppCompatActivity(), CategoriesTask.Callback {
     override fun onResult(categories: List<Category>) {
         this.categories.clear()
         this.categories.addAll(categories)
+        this.categories.addAll(categories)
         adapter.notifyDataSetChanged()
         progressBar.visibility = View.GONE
     }
@@ -53,8 +57,4 @@ class MainActivity : AppCompatActivity(), CategoriesTask.Callback {
         Toast.makeText(this, mensagem, Toast.LENGTH_SHORT).show()
     }
 
-
 }
-
-val KEY: String = "722fa115-a8da-49ea-b138-ce219bd5ee9b"
-val URL: String = " https://api.tiagoaguiar.co/netflixapp/home?apiKey=${KEY}"
